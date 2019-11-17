@@ -10,18 +10,23 @@
  * Date: Nov 13, 2019
  */
 
- template <class ElementType>
- class BSTNode {
+#include <string>
+#include <iostream>
+using namespace std;
+
+template <class ELementType>
+class BSTNode {
      private:
-        ElementType*data;
+        string data;
         BSTNode*leftChild;
         BSTNode*rightChild;
         BSTNode*parent;
 
+        // Description: Overloads < for comparing strings
         bool operator<(const string& rhs) {
             // Compare both string  objects
-            int compare;
-            if ((this.compare(rhs))<0) {
+            // int compare;
+            if ((this->data.compare(rhs))<0) {
                 return true;
             }
             else {
@@ -30,37 +35,64 @@
         } // end of operator<
 
      public:
-        //Description: base constructor case
-        BSTNode () {
-            data=NULL;
-            leftChild=NULL;
-            rightChild=NULL;
-            parent=NULL;
-        }
-
-        //Description: filled constructor
-        BSTNode (ElementType&newData, ElementType&newLeftChild, ElementType&newRightChild, ElementType&newParent) {
-            data=newData;
-            leftChild=newLeftChild;
-            rightChild=newRightChild;
-            parent=newParent;
-        }
-
-        //Description: setter function for BSTNode, requires op overload of >
-        void setChild (ElementType&newData) {
-            if (newData>this.data) {
-                leftChild->data=newData;
-                leftChild->parent=this;
-            }
-
-            else {
-                rightChild->data=newData;
-                rightChild->parent=this;
-            }
-        }
-
-
-
-
-
+        BSTNode ();
+        BSTNode(std::string &newData);
+        BSTNode(BSTNode &newNode);
+        ~BSTNode ();
+        bool setData (const string &newData);
+        // bool setChild (const std::string &newData);
+        string&getData (); 
+        
  };
+
+template <class ElementType>
+BSTNode<ElementType>::BSTNode() {
+    data="";
+    leftChild=NULL;
+    rightChild=NULL;
+    parent=NULL;
+}
+
+template <class ElementType>
+BSTNode<ElementType>::BSTNode(std::string &newData) {
+    data=newData;
+    leftChild=NULL;
+    rightChild=NULL;
+    parent=NULL;
+}
+
+template <class ElementType>
+BSTNode<ElementType>::BSTNode(BSTNode &newNode) {
+    data=newNode.data;
+    leftChild=newNode.leftChild;
+    rightChild=newNode.rightChild;
+    parent=newNode.parent;
+}
+
+template <class ElementType>
+BSTNode<ElementType>::~BSTNode() {
+    data="";
+    leftChild=NULL;
+    rightChild=NULL;
+    parent=NULL;
+    delete leftChild;
+    delete rightChild;
+    delete parent;
+    delete this;
+}
+
+template <class ElementType>
+bool BSTNode<ElementType>::setData (const std::string &newData) {
+    data=newData;
+    return true;
+}
+
+// //Description: setter function for BSTNode, requires op overload of >
+// bool BSTNode::setChild (const std::string &newData) {
+//     if ((this->data)<newData) {
+//         this->leftChild->data=newData;
+//     }
+//     else {
+//         this->rightChild->data=newData;
+//     }
+// }
