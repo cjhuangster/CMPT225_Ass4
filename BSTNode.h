@@ -21,7 +21,6 @@ class BSTNode {
         BSTNode*leftChild;
         BSTNode*rightChild;
         BSTNode*parent;
-
         // Description: Overloads < for comparing strings
         bool operator<(const string& rhs) {
             // Compare both string  objects
@@ -40,7 +39,6 @@ class BSTNode {
         BSTNode(BSTNode &newNode);
         ~BSTNode ();
         bool setData (const string &newData);
-        // bool setChild (const std::string &newData);
         string&getData (); 
         
  };
@@ -86,13 +84,3 @@ bool BSTNode<ElementType>::setData (const std::string &newData) {
     data=newData;
     return true;
 }
-
-// //Description: setter function for BSTNode, requires op overload of >
-// bool BSTNode::setChild (const std::string &newData) {
-//     if ((this->data)<newData) {
-//         this->leftChild->data=newData;
-//     }
-//     else {
-//         this->rightChild->data=newData;
-//     }
-// }
