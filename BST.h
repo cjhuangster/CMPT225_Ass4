@@ -31,7 +31,7 @@ private:
 
     // Utility methods
     bool insertR(const ElementType& element, Node<ElementType>* current);
-    ElementType& retrieveR(const ElementType& targetElement, Node<ElementType>* current) const throw(ElementDoesNotExistInBSTException);
+    ElementType& retrieveR(const ElementType& targetElement, Node<ElementType>* current) const; //throw(ElementDoesNotExistInBSTException);
 	void traverseInOrderR(Node<ElementType>*current) const;
 
 	//Overload Operators
@@ -59,7 +59,7 @@ private:
 			aCounter++;
 		}
 		
-		while (rhs[bCounter]!=":" && bCounter<bSize) {
+		while (&(rhs[bCounter])!=":" && bCounter<bSize) {
 			bCounter++;
 		}
 
@@ -116,7 +116,7 @@ BST<ElementType>::BST( ElementType& element) {
 
 template <class ElementType>
 BST<ElementType>::BST(const BST<ElementType>& aBST) {
-	*myBST = *aBST;
+	myBST = aBST;
 	elementCount = 1;
 }
 
@@ -135,9 +135,11 @@ template <class ElementType>
 void BST<ElementType>::insert(const ElementType& newElement){ //throw(ElementAlreadyExistsInBSTException) {
 	if (elementCount==0) {
 		myBST->setData(newElement);
-	};
+		elementCount++;
+	}
 	else {
 		insertR(newElement, myBST);
+		elementCount++;
 	}
 }
 
@@ -164,16 +166,17 @@ void BST<ElementType>::traverseInOrder(Node<ElementType>*current) const {
 	}
 }
 
+
 template <class ElementType>
 bool BST<ElementType>::insertR(const ElementType& element, Node<ElementType>* current) {
 	//if current data isn't empty
-	if (current->getData!="") {
+	if (current->getData()!="") {
 		//case1: if the current element is larger, go left
 		if (element<current->getData() &&current->hasLeft()) {
 			insertR(element, current->getLeft());
 				}
 		//case2: if current element is smaller, go right
-		else if (current->hasRight() {
+		else if (current->hasRight()) {
 			insertR(element, current->getRight());
 		}
 
@@ -189,7 +192,7 @@ bool BST<ElementType>::insertR(const ElementType& element, Node<ElementType>* cu
 }
 
 template <class ElementType>
-ElementType& BST<ElementType>::retrieveR(const ElementType& targetElement, Node<ElementType>* current) const {//throw(ElementDoesNotExistInBSTException){
+ElementType& BST<ElementType>::retrieveR(const ElementType& targetElement, Node<ElementType>* current) const {//{//throw(ElementDoesNotExistInBSTException){
 	// case 1: data is empty
 	if (current->getData()=="") {
 		cout<<"***Not Found!***"<<endl;

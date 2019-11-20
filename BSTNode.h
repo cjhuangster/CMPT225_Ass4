@@ -35,19 +35,19 @@ class Node {
             // parent=NULL;
         }  
 
-        Node(ElementType&newData) {
-            data = newData;
-            left=NULL;
-            right=NULL;
-            // parent=NULL;
-        }
+        // Node(const ElementType &newData) {
+        //     data = newData;
+        //     left=NULL;
+        //     right=NULL;
+        //     // parent=NULL;
+        // }
 
-        Node(ElementType&newData, Node*newLeft, Node*newRight) {
-            data = newData;
-            left=newLeft;
-            right=newRight;
-            // parent=NULL;
-        }
+        // Node(const ElementType &newData, const Node*newLeft, const Node*newRight) {
+        //     data = newData;
+        //     left=newLeft;
+        //     right=newRight;
+        //     // parent=NULL;
+        // }
         // destructor
         ~Node() {
             // data="";
@@ -57,13 +57,12 @@ class Node {
             delete left;
             delete right;
             // delete parent;
-            delete this;
+            // delete;
         }
         //getters
         ELementType&getData () const; 
-        // why can't I put const beside getLeft/right??
-        Node getLeft();
-        Node*getRight();
+        Node getLeft() const;
+        Node*getRight() const;
         //setters
         void setData (const ELementType &newData);
         void setLeft(Node*newLeft);
@@ -83,7 +82,7 @@ ElementType&Node<ElementType>::getData() const {
 
 
 template<class Node>
-Node* getLeft () {
+Node*getLeft() {
     return left;
 }
 
@@ -130,7 +129,7 @@ bool Node<ElementType>::hasLeft() const {
 } 
 
 template <class ElementType>
-bool Node<ElementType>::hasLeft() const {
+bool Node<ElementType>::hasRight() const {
     if (right!=NULL) {
         return true;
     }
