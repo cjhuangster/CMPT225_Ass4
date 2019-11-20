@@ -23,7 +23,8 @@ class Node {
         ELementType data;
         Node*left;
         Node*right;
-        Node*parent;
+        //how to initialize/change parent data?
+        // Node*parent;
 
      public:
         //  constructors
@@ -31,31 +32,31 @@ class Node {
             // data=
             left=NULL;
             right=NULL;
-            parent=NULL;
+            // parent=NULL;
         }  
 
         Node(ElementType&newData) {
             data = newData;
             left=NULL;
             right=NULL;
-            parent=NULL;
+            // parent=NULL;
         }
 
         Node(ElementType&newData, Node*newLeft, Node*newRight) {
             data = newData;
             left=newLeft;
             right=newRight;
-            parent=NULL;
+            // parent=NULL;
         }
         // destructor
         ~Node() {
             // data="";
             left=NULL;
             right=NULL;
-            parent=NULL;
+            // parent=NULL;
             delete left;
             delete right;
-            delete parent;
+            // delete parent;
             delete this;
         }
         //getters
@@ -91,10 +92,10 @@ Node*getRight() {
     return right;
 }
 
-//setters
+//Setters
 template <class ElementType>
 void Node<ElementType>::setData (const ElementType &newData) {
-    data=newData;
+    this->data=newData;
 }
 
 template <class ElementType>
