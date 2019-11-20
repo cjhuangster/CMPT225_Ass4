@@ -24,16 +24,29 @@ template <class ElementType>
 class BST {
 	
 private:
-	BSTNode*myBST = new BSTNode;
+	Node<string> *myBST = new Node<string>;
 	unsigned int elementCount;
 	// Put your code here!
           
 
     // Utility methods
-    bool insertR(const ElementType& element, BSTNode<ElementType>* current);
-    ElementType& retrieveR(const ElementType& targetElement, BSTNode<ElementType>* current) const throw(ElementDoesNotExistInBSTException);
+    bool insertR(const ElementType& element, Node<ElementType>* current);
+    ElementType& retrieveR(const ElementType& targetElement, Node<ElementType>* current) const throw(ElementDoesNotExistInBSTException);
 	void traverseInOrderR() const;// Put your code here!) const;
 	
+
+	//Overload Operators
+	// Description: Overloads < for comparing strings
+	bool operator<(const string& rhs) {
+		// Compare both string  objects
+		// int compare;
+		if ((this->data.compare(rhs))<0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	} // end of operator<
 	// Description: Overloads == for comparing english section (before:) of words
 	//TO BE TESTED
 	bool operator==(const string& rhs) {
@@ -123,20 +136,24 @@ template <class ElementType>
 void BST<ElementType>::insert(const ElementType& newElement){ //throw(ElementAlreadyExistsInBSTException) {
 	if (elementCount==0) {
 		myBST->setData(newElement);
-	}
-	BSTNode*current = new BSTNode(myBST);
+	};
 	else {
-		// insertR(newElement, current);
+		insertR(newElement, myBST);
 	}
 }
 
 template <class ElementType>
 ElementType& BST<ElementType>::retrieve(const ElementType& targetElement){ //throw(ElementDoesNotExistInBSTException) {
-
+	if (elementCount==0) {
+		cout<<"error:retrieve() called from empty BST"<<endl;
+	}
+	else {
+		retrieveR (targetElement, myBST);
+	}
 }
 
 template <class ElementType>
-bool BST<ElementType>::insertR(const ElementType& element, BSTNode<ElementType>* current){ //throw(ElementDoesNotExistInBSTException) {
+bool BST<ElementType>::insertR(const ElementType& element, Node<ElementType>* current){ //throw(ElementDoesNotExistInBSTException) {
 	while (current.data!="") {
 		
 	}
@@ -144,7 +161,6 @@ bool BST<ElementType>::insertR(const ElementType& element, BSTNode<ElementType>*
 }
 
 template <class ElementType>
-ElementType& BST<ElementType>::retrieveR(const ElementType& targetElement, BSTNode<ElementType>* current) const throw(ElementDoesNotExistInBSTException){
+ElementType& BST<ElementType>::retrieveR(const ElementType& targetElement, Node<ElementType>* current) const {//throw(ElementDoesNotExistInBSTException){
 
 }
-
