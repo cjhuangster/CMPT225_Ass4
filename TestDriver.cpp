@@ -35,6 +35,11 @@ int main()
    {
       cout << "Error: Attempted to retrieve an element not in BST" << endl;
    }
+
+      catch (ElementAlreadyExistsInBSTException &anException)
+   {
+      cout << "Error: Attempted to insert an identical element into BST" << endl;
+   }
    // //BSTNode Test Driver
    // Node<int> *myNode = new Node<int>;
    // myNode->data=5;
