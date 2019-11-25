@@ -24,7 +24,7 @@ template <class ElementType>
 class BST {
 	
 private:
-	Node<string> *myBST = new Node<string>;
+	Node<ElementType> *myBST = new Node<ElementType>;
 	unsigned int elementCount;
 	// Put your code here!
           
@@ -172,12 +172,14 @@ bool BST<ElementType>::insertR(const ElementType& element, Node<ElementType>* cu
 	//if current data isn't empty
 	if (current->getData()!="") {
 		//case1: if the current element is larger, go left
-		if (element<current->getData() &&current->hasLeft()) {
-			insertR(element, current->getLeft());
+		if (element<current->getData() && current->hasLeft()) {
+			current = current->getLeft();
+			insertR(element, current);
 				}
-		//case2: if current element is smaller, go right
+		//case2: if current element is smaller, go right 
 		else if (current->hasRight()) {
-			insertR(element, current->getRight());
+			current=current->getRight();
+			insertR(element, current);
 		}
 
 		else if (current->getData()==element) {

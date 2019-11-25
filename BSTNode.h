@@ -20,13 +20,12 @@ using namespace std;
 template <class ELementType>
 class Node {
      private:
+        
+     public:
         ELementType data;
         Node*left;
         Node*right;
-        //how to initialize/change parent data?
-        // Node*parent;
 
-     public:
         //  constructors
         Node() {
             // data=
@@ -60,9 +59,9 @@ class Node {
             // delete;
         }
         //getters
-        ELementType&getData () const; 
-        Node getLeft() const;
-        Node*getRight() const;
+        ELementType getData () const; 
+        ELementType*getLeft();
+        ELementType*getRight();
         //setters
         void setData (const ELementType &newData);
         void setLeft(Node*newLeft);
@@ -76,18 +75,18 @@ class Node {
 
 //Getters
 template <class ElementType>
-ElementType&Node<ElementType>::getData() const {
-    return data;
+ElementType Node<ElementType>::getData() const {;
+    return (this->data);
 }
 
 
-template<class Node>
-Node*getLeft() {
+template<class ElementType>
+ElementType* Node<ElementType>::getLeft() {
     return left;
 }
 
-template<class Node>
-Node*getRight() {
+template<class ElementType>
+ElementType* Node<ElementType>::getRight() {
     return right;
 }
 
