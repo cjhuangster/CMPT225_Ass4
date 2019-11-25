@@ -216,12 +216,17 @@ bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *cu
 template <class ElementType>
 ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<ElementType> *current) const
 { //{//throw(ElementDoesNotExistInBSTException){
-	if (current->getData() < targetElement)
+	cout<<"target Element: "<<targetElement<<" current Element: "<<current->getData()<<endl;
+	//case 1: targetElement matched, return
+	if (current->getData()==targetElement) {
+		// ElementType toReturn = current->getData();
+		// cout<<"matched Element"<<endl;
+		return current->getData();
+	}
+	//case 2: targetElement bigger than current data, there is right, go right
+	else if (current->getData() < targetElement && current->hasRight())
 	{
-		if (current->hasRight())
-		{
-			retrieveR(targetElement, current->getRight());
-		}
+		retrieveR(targetElement, current->getRight());
 	}
 	else if (current->hasLeft())
 	{
@@ -229,9 +234,9 @@ ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<
 	}
 	else
 	{
-		cout << "error, targetElement not in BST" << endl;
+		throw ElementDoesNotExistInBSTException("Error:targetElement not in BST");
 	}
-}
+} 
 
 template <class ElementType>
 void BST<ElementType>::traverseInOrderR(Node<ElementType> *current) const
