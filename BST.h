@@ -10,7 +10,7 @@
  * Date: Nov 13, 2019
  */
 
-	// Put your code here! 
+// Put your code here!
 
 // #include <iostream>
 // #include <sstream>
@@ -18,218 +18,235 @@
 #include "ElementAlreadyExistsInBSTException.h"
 #include "ElementDoesNotExistsInBSTException.h"
 
-
-
 template <class ElementType>
-class BST {
-	
+class BST
+{
+
 private:
-	Node<ElementType> *myBST = new Node<ElementType>;
+	Node<ElementType> *root = new Node<ElementType>;
 	unsigned int elementCount;
 	// Put your code here!
-          
 
-    // Utility methods
-    bool insertR(const ElementType& element, Node<ElementType>* current);
-    ElementType& retrieveR(const ElementType& targetElement, Node<ElementType>* current) const; //throw(ElementDoesNotExistInBSTException);
-	void traverseInOrderR(Node<ElementType>*current) const;
+	// Utility methods
+	bool insertR(const ElementType &element, Node<ElementType> *current);
+	ElementType &retrieveR(const ElementType &targetElement, Node<ElementType> *current) const; //throw(ElementDoesNotExistInBSTException);
+	void traverseInOrderR(Node<ElementType> *current) const;
 
 	//Overload Operators
 	// Description: Overloads < for comparing strings
-	bool operator<(const string& rhs) {
+	bool operator<(const string &rhs)
+	{
 		// Compare both string  objects
 		// int compare;
-		if ((this.compare(rhs))<0) {
+		if ((this.compare(rhs)) < 0)
+		{
 			return true;
 		}
-		else {
+		else
+		{
 			return false;
 		}
 	} // end of operator<
 
 	// Description: Overloads == for comparing english section (before:) of words
 	//TO BE TESTED
-	bool operator==(const string& rhs) {
+	bool operator==(const string &rhs)
+	{
 		unsigned int aCounter = 0;
 		unsigned int aSize = this.size();
 		unsigned int bCounter = 0;
 		unsigned int bSize = rhs.size();
-		cout<<"the words to be compared are: "<<this<<" "<<rhs<<endl;
-		while (this[aCounter]!=":" && aCounter<aSize) {
+		cout << "the words to be compared are: " << this << " " << rhs << endl;
+		while (this[aCounter] != ":" && aCounter < aSize)
+		{
 			aCounter++;
 		}
-		
-		while (&(rhs[bCounter])!=":" && bCounter<bSize) {
+
+		while (&(rhs[bCounter]) != ":" && bCounter < bSize)
+		{
 			bCounter++;
 		}
 
 		//case 1: english words of different length
-		if (aCounter!=bCounter) {
-			cout<<"compared words of different length"<<aCounter<<bCounter<<endl;
+		if (aCounter != bCounter)
+		{
+			cout << "compared words of different length" << aCounter << bCounter << endl;
 			return false;
 		}
 
 		//case 2: same length words but different char
-		else {
-			string aEnglish = this.substr(0,aCounter);
-			string bEnglish = rhs.substr(0,aCounter);
-			if (aEnglish.compare(bEnglish)!=0) {
-				cout<<"compared english words with different char makeup"<<endl;
+		else
+		{
+			string aEnglish = this.substr(0, aCounter);
+			string bEnglish = rhs.substr(0, aCounter);
+			if (aEnglish.compare(bEnglish) != 0)
+			{
+				cout << "compared english words with different char makeup" << endl;
 				return false;
 			}
 		}
 		return true;
-	} // end of operator==	
+	} // end of operator==
 
 public:
-    // Constructors and destructor:
-	BST();                               // Default constructor
-    BST(ElementType& element);           // Parameterized constructor 
-	BST(const BST<ElementType>& aBST);   // Copy constructor 
-    ~BST();                              // Destructor 
-	
-    // BST operations:
+	// Constructors and destructor:
+	BST();							   // Default constructor
+	BST(ElementType &element);		   // Parameterized constructor
+	BST(const BST<ElementType> &aBST); // Copy constructor
+	~BST();							   // Destructor
 
-    // Time efficiency: O(1)
+	// BST operations:
+
+	// Time efficiency: O(1)
 	int getElementCount() const;
 
 	// Time efficiency: O(log2 n)
-	void insert(const ElementType& newElement); // throw(ElementAlreadyExistsInBSTException);	
+	void insert(const ElementType &newElement); // throw(ElementAlreadyExistsInBSTException);
 
 	// Time efficiency: O(log2 n)
-	ElementType& retrieve(const ElementType& targetElement); //throw(ElementDoesNotExistInBSTException);
+	ElementType &retrieve(const ElementType &targetElement); //throw(ElementDoesNotExistInBSTException);
 
 	// Time efficiency: O(n)
-	void traverseInOrder(Node<ElementType>*current) const;
+	void traverseInOrder() const;
 };
 
 template <class ElementType>
-BST<ElementType>::BST() {
+BST<ElementType>::BST()
+{
 	elementCount = 0;
 }
 
 template <class ElementType>
-BST<ElementType>::BST( ElementType& element) {
-	myBST->setData = element;
+BST<ElementType>::BST(ElementType &element)
+{
+	root->setData = element;
 	elementCount = 1;
 }
 
 template <class ElementType>
-BST<ElementType>::BST(const BST<ElementType>& aBST) {
-	myBST = aBST;
+BST<ElementType>::BST(const BST<ElementType> &aBST)
+{
+	root = aBST;
 	elementCount = 1;
 }
 
 template <class ElementType>
-BST<ElementType>::~BST() {
-	delete myBST;
-}
-
-
-template <class ElementType>
-int BST<ElementType>::getElementCount() const {
- return elementCount;
+BST<ElementType>::~BST()
+{
+	delete root;
 }
 
 template <class ElementType>
-void BST<ElementType>::insert(const ElementType& newElement){ //throw(ElementAlreadyExistsInBSTException) {
-	if (elementCount==0) {
-		myBST->setData(newElement);
+int BST<ElementType>::getElementCount() const
+{
+	return elementCount;
+}
+
+template <class ElementType>
+void BST<ElementType>::insert(const ElementType &newElement)
+{ //throw(ElementAlreadyExistsInBSTException) {
+	if (elementCount == 0)
+	{
+		root->setData(newElement);
 		elementCount++;
 	}
-	else {
-		insertR(newElement, myBST);
+	else
+	{
+		insertR(newElement, root);
 		elementCount++;
 	}
 }
 
 template <class ElementType>
-ElementType& BST<ElementType>::retrieve(const ElementType& targetElement){ //throw(ElementDoesNotExistInBSTException) {
-	if (elementCount==0) {
-		cout<<"error:retrieve() called from empty BST"<<endl;
+ElementType &BST<ElementType>::retrieve(const ElementType &targetElement)
+{ //throw(ElementDoesNotExistInBSTException) {
+	if (elementCount == 0)
+	{
+		cout << "error:retrieve() called from empty BST" << endl;
 	}
-	else {
-		retrieveR (targetElement, myBST);
+	else
+	{
+		retrieveR(targetElement, root);
 	}
 }
-
 
 // Time efficiency: O(n)
 template <class ElementType>
-void BST<ElementType>::traverseInOrder(Node<ElementType>*current) const {
+void BST<ElementType>::traverseInOrder() const
+{
 	//recursively traverse in order and returning the element of root to be outputted
-	if (elementCount==0) {
-		cout<<"empty BST"<<endl;
+	if (elementCount == 0)
+	{
+		cout << "empty BST" << endl;
 	}
-	else {
-		traverseInOrderR(current);
-	}
-}
-
-
-template <class ElementType>
-bool BST<ElementType>::insertR(const ElementType& element, Node<ElementType>* current) {
-	//if current data isn't empty
-	if (current->getData()!="") {
-		//case1: if the current element is larger, go left
-		if (element<current->getData() && current->hasLeft()) {
-			current = current->getLeft();
-			insertR(element, current);
-				}
-		//case2: if current element is smaller, go right 
-		else if (current->hasRight()) {
-			current=current->getRight();
-			insertR(element, current);
-		}
-
-		else if (current->getData()==element) {
-			cout<<"error: element already in BST"<<endl;
-			return false;
-		}
-	}
-	else {	
-		current->setData(element);
-		return true;
+	else
+	{
+		traverseInOrderR(root);
 	}
 }
 
 template <class ElementType>
-ElementType& BST<ElementType>::retrieveR(const ElementType& targetElement, Node<ElementType>* current) const {//{//throw(ElementDoesNotExistInBSTException){
-	// case 1: data is empty
-	if (current->getData()=="") {
-		cout<<"***Not Found!***"<<endl;
+bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *current)
+{
+	if (current->getData() < element)
+	{
+		if (current->hasRight())
+		{
+			insertR(element, current->getRight());
+		}
+		else
+		{
+			Node<ElementType> *temp = new Node<ElementType>(element);
+			current->setRight(temp);
+		}
 	}
-	// case 2: current data is target element, return
-	else if (current->getData==targetElement) {
-		return current->getData();
+
+	else if (current->hasLeft())
+	{
+		insertR(element, current->getLeft());
 	}
-	// case 3: curent data smaller and has right node, go right
-	else if (current->getData<targetElement && current->hasRight()) {
-		retrieveR(targetElement, current->getRight());
+
+	else
+	{
+		Node<ElementType> *temp = new Node<ElementType>(element);
+		current->setLeft(temp);
 	}
-	// case 4: current has left, go left
-	else if (current->hasLeft()) {
+}
+
+template <class ElementType>
+ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<ElementType> *current) const
+{ //{//throw(ElementDoesNotExistInBSTException){
+	if (current->getData() < targetElement)
+	{
+		if (current->hasRight())
+		{
+			retrieveR(targetElement, current->getRight());
+		}
+	}
+	else if (current->hasLeft())
+	{
 		retrieveR(targetElement, current->getLeft());
 	}
-	// default case: to be tested?
-	else {
-		cout<<"error: 0/4 test cases met. targetElement: "<<targetElement<<" current data:"<<current->getData()<<endl;
-		cout<<"***Not Found!***"<<endl;
+	else
+	{
+		cout << "error, targetElement not in BST" << endl;
 	}
 }
 
 template <class ElementType>
-void BST<ElementType>::traverseInOrderR(Node<ElementType>*current) const {
+void BST<ElementType>::traverseInOrderR(Node<ElementType> *current) const
+{
 	//first traverse left
-	if(current->hasLeft()) {
+	if (current->hasLeft())
+	{
 		traverseInOrderR(current->getLeft());
 	}
 	//then print current element
-	else {
-		cout<<current->getData();
-	}
+	cout << current->getData() << endl;
+
 	//then traverse right
-	if(current->hasRight()) {
+	if (current->hasRight())
+	{
 		traverseInOrderR(current->getRight());
 	}
 }
