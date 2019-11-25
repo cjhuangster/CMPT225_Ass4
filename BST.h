@@ -29,7 +29,7 @@ private:
 
 	// Utility methods
 	bool insertR(const ElementType &element, Node<ElementType> *current);
-	ElementType &retrieveR(const ElementType &targetElement, Node<ElementType> *current) const; //throw(ElementDoesNotExistInBSTException);
+	ElementType &retrieveR(const ElementType &targetElement, Node<ElementType> *current) const throw(ElementDoesNotExistInBSTException);
 	void traverseInOrderR(Node<ElementType> *current) const;
 
 	//Overload Operators
@@ -101,10 +101,10 @@ public:
 	int getElementCount() const;
 
 	// Time efficiency: O(log2 n)
-	void insert(const ElementType &newElement); // throw(ElementAlreadyExistsInBSTException);
+	void insert(const ElementType &newElement) throw(ElementAlreadyExistsInBSTException);
 
 	// Time efficiency: O(log2 n)
-	ElementType &retrieve(const ElementType &targetElement); //throw(ElementDoesNotExistInBSTException);
+	ElementType &retrieve(const ElementType &targetElement) throw(ElementDoesNotExistInBSTException);
 
 	// Time efficiency: O(n)
 	void traverseInOrder() const;
@@ -143,8 +143,8 @@ int BST<ElementType>::getElementCount() const
 }
 
 template <class ElementType>
-void BST<ElementType>::insert(const ElementType &newElement)
-{ //throw(ElementAlreadyExistsInBSTException) {
+void BST<ElementType>::insert(const ElementType &newElement) throw(ElementAlreadyExistsInBSTException)
+{
 	if (elementCount == 0)
 	{
 		root->setData(newElement);
@@ -152,14 +152,20 @@ void BST<ElementType>::insert(const ElementType &newElement)
 	}
 	else
 	{
-		insertR(newElement, root);
-		elementCount++;
+		if (!insertR(newElement, root))
+		{
+			throw ElementAlreadyExistsInBSTException("Error: Attempted to insert an identical element.");
+		}
+		else
+		{
+			elementCount++;
+		}
 	}
 }
 
 template <class ElementType>
-ElementType &BST<ElementType>::retrieve(const ElementType &targetElement)
-{ //throw(ElementDoesNotExistInBSTException) {
+ElementType &BST<ElementType>::retrieve(const ElementType &targetElement) throw(ElementDoesNotExistInBSTException)
+{
 	if (elementCount == 0)
 	{
 		cout << "error:retrieve() called from empty BST" << endl;
@@ -188,7 +194,12 @@ void BST<ElementType>::traverseInOrder() const
 template <class ElementType>
 bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *current)
 {
-	if (current->getData() < element)
+	if (current->getData() == element)
+	{
+		return false;
+	}
+
+	else if (current->getData() < element)
 	{
 		if (current->hasRight())
 		{
@@ -198,6 +209,7 @@ bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *cu
 		{
 			Node<ElementType> *temp = new Node<ElementType>(element);
 			current->setRight(temp);
+			return true;
 		}
 	}
 
@@ -210,18 +222,22 @@ bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *cu
 	{
 		Node<ElementType> *temp = new Node<ElementType>(element);
 		current->setLeft(temp);
+		return true;
 	}
 }
 
 template <class ElementType>
-ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<ElementType> *current) const
-{ //{//throw(ElementDoesNotExistInBSTException){
-	cout<<"target Element: "<<targetElement<<" current Element: "<<current->getData()<<endl;
+ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<ElementType> *current) const throw(ElementDoesNotExistInBSTException)
+{
+	cout << "target Element: " << targetElement << " current Element: " << current->getData() << endl;
 	//case 1: targetElement matched, return
-	if (current->getData()==targetElement) {
-		// ElementType toReturn = current->getData();
-		// cout<<"matched Element"<<endl;
-		return current->getData();
+	if (current->getData() == targetElement)
+	{
+
+		// return current->getData();
+		ElementType toReturn = current->getData();
+		cout << "matched Element" << endl;
+		return toReturn;
 	}
 	//case 2: targetElement bigger than current data, there is right, go right
 	else if (current->getData() < targetElement && current->hasRight())
@@ -236,7 +252,7 @@ ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<
 	{
 		throw ElementDoesNotExistInBSTException("Error:targetElement not in BST");
 	}
-} 
+}
 
 template <class ElementType>
 void BST<ElementType>::traverseInOrderR(Node<ElementType> *current) const
