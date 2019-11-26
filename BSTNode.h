@@ -21,11 +21,13 @@ template <class ElementType>
 class Node
 {
 private:
+
+
+public:
     ElementType data;
     Node *left;
     Node *right;
-
-public:
+    
     //  constructors
     Node()
     {

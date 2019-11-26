@@ -48,21 +48,27 @@ private:
 		}
 	} // end of operator<
 
-	// Description: Overloads == for comparing english section (before:) of words
+			// Description: Overloads == for comparing english section (before:) of words
 	//TO BE TESTED
-	bool operator==(const string &rhs)
+	// bool operator==(const string &rhs)
+	bool compareEquivalence (const string &aString, const string &bString)
 	{
 		unsigned int aCounter = 0;
-		unsigned int aSize = this.size();
+		// unsigned int aSize = this.size();
+		unsigned int aSize = aString.size();
 		unsigned int bCounter = 0;
-		unsigned int bSize = rhs.size();
-		cout << "the words to be compared are: " << this << " " << rhs << endl;
-		while (this[aCounter] != ":" && aCounter < aSize)
+		// unsigned int bSize = rhs.size();
+		unsigned int bSize = bString.size();
+		// cout << "the words to be compared are: " << this << " " << rhs << endl;
+		// while (this[aCounter] != ':' && aCounter < aSize)
+		while (aString[aCounter] != ':' && aCounter < aSize)
+		
 		{
 			aCounter++;
 		}
 
-		while (&(rhs[bCounter]) != ":" && bCounter < bSize)
+		// while (rhs[bCounter] != ':' && bCounter < bSize)
+		while (bString[bCounter] != ':' && bCounter < bSize)
 		{
 			bCounter++;
 		}
@@ -72,23 +78,24 @@ private:
 		{
 			cout << "compared words of different length" << aCounter << bCounter << endl;
 			return false;
-		}
+		} 
 
 		//case 2: same length words but different char
 		else
 		{
-			string aEnglish = this.substr(0, aCounter);
-			string bEnglish = rhs.substr(0, aCounter);
+			string aEnglish = aString.substr(0, aCounter);
+			string bEnglish = bString.substr(0, aCounter);
 			if (aEnglish.compare(bEnglish) != 0)
 			{
 				cout << "compared english words with different char makeup" << endl;
 				return false;
 			}
-		}
+		} 
 		return true;
 	} // end of operator==
 
 public:
+
 	// Constructors and destructor:
 	BST();							   // Default constructor
 	BST(ElementType &element);		   // Parameterized constructor
@@ -229,15 +236,14 @@ bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *cu
 template <class ElementType>
 ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<ElementType> *current) const throw(ElementDoesNotExistInBSTException)
 {
-	cout << "target Element: " << targetElement << " current Element: " << current->getData() << endl;
+	// cout << "target Element: " << targetElement << " current Element: " << current->getData() << endl;
 	//case 1: targetElement matched, return
 	if (current->getData() == targetElement)
 	{
-
-		// return current->getData();
-		ElementType toReturn = current->getData();
-		cout << "matched Element" << endl;
-		return toReturn;
+		return current->data;
+		// ElementType*toReturn = new ElementType;
+		// toReturn = current->getData());
+		// return toReturn;
 	}
 	//case 2: targetElement bigger than current data, there is right, go right
 	else if (current->getData() < targetElement && current->hasRight())

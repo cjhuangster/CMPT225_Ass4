@@ -25,5 +25,5 @@ public:
 
 ElementDoesNotExistInBSTException::ElementDoesNotExistInBSTException(const string& message): 
 logic_error("Element Does Not Exist In BST Exception: " + message)
-{ exit;
+{ 
 }  // end constructor
