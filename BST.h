@@ -12,8 +12,6 @@
 
 // Put your code here!
 
-// #include <iostream>
-// #include <sstream>
 #include "BSTNode.h"
 #include "ElementAlreadyExistsInBSTException.h"
 #include "ElementDoesNotExistsInBSTException.h"
@@ -190,7 +188,7 @@ void BST<ElementType>::traverseInOrder() const
 	//recursively traverse in order and returning the element of root to be outputted
 	if (elementCount == 0)
 	{
-		cout << "empty BST" << endl;
+		// cout << "empty BST" << endl;
 	}
 	else
 	{
@@ -209,7 +207,7 @@ bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *cu
 	else if (current->getData() < element)
 	{
 		if (current->hasRight())
-		{
+		{	current->height++;
 			insertR(element, current->getRight());
 		}
 		else
@@ -221,12 +219,12 @@ bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *cu
 	}
 
 	else if (current->hasLeft())
-	{
+	{	current->height++;
 		insertR(element, current->getLeft());
 	}
 
 	else
-	{
+	{	current->height++;
 		Node<ElementType> *temp = new Node<ElementType>(element);
 		current->setLeft(temp);
 		return true;
@@ -238,7 +236,7 @@ ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<
 {
 	// cout << "target Element: " << targetElement << " current Element: " << current->getData() << endl;
 	//case 1: targetElement matched, return
-	if (current->getData() == targetElement)
+	if (compareEquivalence(current->getData(), targetElement))
 	{
 		return current->data;
 		// ElementType*toReturn = new ElementType;

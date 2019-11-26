@@ -27,6 +27,7 @@ public:
     ElementType data;
     Node *left;
     Node *right;
+    int height;
     
     //  constructors
     Node()

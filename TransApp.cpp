@@ -6,21 +6,39 @@
 using namespace std;
 
 void getText();
+void getInput(BST<string>&aBST);
 bool compareEquivalence(const string &aString, const string &bString);
 
-int main()
+int main() 
 {
     BST<string> *myBST = new BST<string>();
+    getText(); //get dataFile.txt stored word pairings
+    
+    //get input for translator
+    string str;
+    while (getline(cin,str)) {
+        if (str=="display") {
+            myBST->traverseInOrder();
+        }
+        else {
+            myBST->retrieve(str);
+        }
+    }
     return 0;
 }
 
 void getText() {
-    ifstream file("dataFile.txt");
-    string str;
-    while (getline(file, str))
-    {
-        cout << str;
-    }
+    string STRING;
+	ifstream infile;
+	infile.open ("dataFile.txt");
+        while(getline(infile,STRING)) // To get you all the lines.
+        {
+	        cout<<STRING<<endl; // Prints our STRING.
+        }
+	infile.close();
+}
+
+void getInput(BST<string>&aBST) {
 }
 
 bool compareEquivalence(const string &aString, const string &bString)

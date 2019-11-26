@@ -19,7 +19,7 @@ int main()
    myBST->insert("AA:ZZ");
    myBST->insert("AA:XX");
    string ZZ="AA:ZZ";
-   string XX="AA:XXX";
+   string XX="AA:";
    bool equal = ZZ==XX;
    cout<<equal<<endl;
    cout<<"size ZZ: "<<ZZ.size()<<endl;

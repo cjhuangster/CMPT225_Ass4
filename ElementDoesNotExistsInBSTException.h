@@ -24,6 +24,6 @@ public:
 }; // end ElementDoesNotExistInBSTException 
 
 ElementDoesNotExistInBSTException::ElementDoesNotExistInBSTException(const string& message): 
-logic_error("Element Does Not Exist In BST Exception: " + message)
+logic_error("***Not Found!*** ")
 { 
 }  // end constructor
