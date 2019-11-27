@@ -83,4 +83,4 @@ bool compareEquivalence(const string &aString, const string &bString)
         }
     }
     return true; 
-} // end of operator==        
+} // end of operator==                  

@@ -50,7 +50,7 @@ private:
 	{
 		unsigned int aCounter = 0;
 		unsigned int aSize = this.size();
-		unsigned int bCounter = 0;
+		unsigned int bCounter;
 		unsigned int bSize = rhs.size();
 		
 		char toCompare;
@@ -60,7 +60,6 @@ private:
 				aCounter = i;
 			}
 		}
-
 		char toCompare2;
 		for (int i=0;i++;i<rhs.size()) {
 			toCompare2 = rhs[i];
@@ -68,6 +67,15 @@ private:
 				bCounter = i;
 			}
 		}
+
+		if (aCounter==0) {
+			aCounter = this.size();
+		}
+
+		if (bCounter==0) {
+			bCounter = rhs.size();
+		}
+
 
 		//case 1: english words of different length
 		if (aCounter != bCounter)
@@ -78,8 +86,8 @@ private:
 		//case 2: same length words but different char
 		else
 		{
-			string aEnglish = this.substr(0, aCounter);
-			string bEnglish = rhs.substr(0, aCounter);
+			string aEnglish = this.substr(0, aCounter-1);
+			string bEnglish = rhs.substr(0, aCounter-1);
 			if (aEnglish.compare(bEnglish) != 0)
 			{
 				return false;
@@ -235,23 +243,28 @@ ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<
 	cout << "target Element:" << targetElement << " current Element:" << current->getData() << endl;
 	cout<< (current->data==targetElement)<<endl;
 	int aCounter = 0;
-	char toCompare = current->data[aCounter];
-	while (toCompare!=':' && aCounter<current->data.size()) {
-	aCounter++;
-	toCompare = current->data[aCounter];
-	cout<<aCounter<<current->data[aCounter]<<endl;
-	}
-	cout<<endl<<aCounter<<current->data[aCounter]<<endl;
-
 	int bCounter = 0;
-	char toCompare2 = targetElement[bCounter];
-	while (toCompare2!=':' && bCounter<targetElement.size()) {
-	bCounter++;
-	toCompare = targetElement[bCounter];
-	cout<<bCounter<<targetElement[aCounter]<<endl;
+	char aCompare;
+	char bCompare;
+	for (int i=0;i<current->data.size();i++) {
+		aCompare = current->data[i];
+		cout<<i<< aCompare<<" ";
+		if (aCompare==':') {
+			aCounter = i;
+		}
+	}
+
+	for (int i=0;i<targetElement.size();i++) {
+		bCompare = targetElement[i];
+		cout<<i<< bCompare<<" ";
+		if (bCompare==':') {
+			bCounter = i;
+		}
 	}
 	cout<<"aCounter, data:"<<aCounter<<" "<<current->data[aCounter]<<endl;
 	cout<<"bCounter, data:"<<bCounter<<" "<<targetElement[bCounter]<<endl;
+	cout<<"current size "<<current->data.size()<<endl;
+	cout<<"targetElement size "<<targetElement.size()<<endl;
 
 	
 	// case 1: targetElement matched, return
