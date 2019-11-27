@@ -46,54 +46,49 @@ private:
 		}
 	} // end of operator<
 
-			// Description: Overloads == for comparing english section (before:) of words
-	//TO BE TESTED
-	// bool operator==(const string &rhs)
-	bool compareEquivalence (const string &aString, const string &bString)
+	bool operator==(const string &rhs)
 	{
 		unsigned int aCounter = 0;
-		// unsigned int aSize = this.size();
-		unsigned int aSize = aString.size();
+		unsigned int aSize = this.size();
 		unsigned int bCounter = 0;
-		// unsigned int bSize = rhs.size();
-		unsigned int bSize = bString.size();
-		// cout << "the words to be compared are: " << this << " " << rhs << endl;
-		// while (this[aCounter] != ':' && aCounter < aSize)
-		while (aString[aCounter] != ':' && aCounter < aSize)
+		unsigned int bSize = rhs.size();
 		
-		{
-			aCounter++;
+		char toCompare;
+		for (int i=0;i++;i<this.size()) {
+			toCompare = this[i];
+			if (toCompare == ':') {
+				aCounter = i;
+			}
 		}
 
-		// while (rhs[bCounter] != ':' && bCounter < bSize)
-		while (bString[bCounter] != ':' && bCounter < bSize)
-		{
-			bCounter++;
+		char toCompare2;
+		for (int i=0;i++;i<rhs.size()) {
+			toCompare2 = rhs[i];
+			if (toCompare2 == ':') {
+				bCounter = i;
+			}
 		}
 
 		//case 1: english words of different length
 		if (aCounter != bCounter)
 		{
-			cout << "compared words of different length" << aCounter << bCounter << endl;
 			return false;
-		} 
+		}
 
 		//case 2: same length words but different char
 		else
 		{
-			string aEnglish = aString.substr(0, aCounter);
-			string bEnglish = bString.substr(0, aCounter);
+			string aEnglish = this.substr(0, aCounter);
+			string bEnglish = rhs.substr(0, aCounter);
 			if (aEnglish.compare(bEnglish) != 0)
 			{
-				cout << "compared english words with different char makeup" << endl;
 				return false;
 			}
-		} 
+		}
 		return true;
 	} // end of operator==
 
 public:
-
 	// Constructors and destructor:
 	BST();							   // Default constructor
 	BST(ElementType &element);		   // Parameterized constructor
@@ -198,7 +193,7 @@ void BST<ElementType>::traverseInOrder() const
 
 template <class ElementType>
 bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *current)
-{
+{	
 	if (current->getData() == element)
 	{
 		return false;
@@ -207,7 +202,8 @@ bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *cu
 	else if (current->getData() < element)
 	{
 		if (current->hasRight())
-		{	current->height++;
+		{
+			current->height++;
 			insertR(element, current->getRight());
 		}
 		else
@@ -219,12 +215,14 @@ bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *cu
 	}
 
 	else if (current->hasLeft())
-	{	current->height++;
+	{
+		current->height++;
 		insertR(element, current->getLeft());
 	}
 
 	else
-	{	current->height++;
+	{
+		current->height++;
 		Node<ElementType> *temp = new Node<ElementType>(element);
 		current->setLeft(temp);
 		return true;
@@ -234,9 +232,31 @@ bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *cu
 template <class ElementType>
 ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<ElementType> *current) const throw(ElementDoesNotExistInBSTException)
 {
-	// cout << "target Element: " << targetElement << " current Element: " << current->getData() << endl;
-	//case 1: targetElement matched, return
-	if (compareEquivalence(current->getData(), targetElement))
+	cout << "target Element:" << targetElement << " current Element:" << current->getData() << endl;
+	cout<< (current->data==targetElement)<<endl;
+	int aCounter = 0;
+	char toCompare = current->data[aCounter];
+	while (toCompare!=':' && aCounter<current->data.size()) {
+	aCounter++;
+	toCompare = current->data[aCounter];
+	cout<<aCounter<<current->data[aCounter]<<endl;
+	}
+	cout<<endl<<aCounter<<current->data[aCounter]<<endl;
+
+	int bCounter = 0;
+	char toCompare2 = targetElement[bCounter];
+	while (toCompare2!=':' && bCounter<targetElement.size()) {
+	bCounter++;
+	toCompare = targetElement[bCounter];
+	cout<<bCounter<<targetElement[aCounter]<<endl;
+	}
+	cout<<"aCounter, data:"<<aCounter<<" "<<current->data[aCounter]<<endl;
+	cout<<"bCounter, data:"<<bCounter<<" "<<targetElement[bCounter]<<endl;
+
+	
+	// case 1: targetElement matched, return
+	if (current->data == targetElement)
+	// if (compareEquivalence(current->data, targetElement))
 	{
 		return current->data;
 		// ElementType*toReturn = new ElementType;
@@ -254,7 +274,8 @@ ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<
 	}
 	else
 	{
-		throw ElementDoesNotExistInBSTException("Error:targetElement not in BST");
+		// throw ElementDoesNotExistInBSTException("Error:targetElement not in BST");
+		cout<<"***Not Found***"<<endl;
 	}
 }
 

@@ -9,25 +9,28 @@ bool compareEquivalence (const string &aString, const string &bString);
 
 int main()
 {
+   cout<<compareEquivalence("me:wo", "me:hi")<<endl;
+   cout<<compareEquivalence("me:wo", "ge:wo")<<endl;
+
    // BST Test Driver
    //checkEquivalence Test
    // cout<<"test 1 same:"<<compareEquivalence ("AA:ZZ", "AA:ZZ")<<endl;
    // cout<<"test 2 not same:"<<compareEquivalence ("AA:ZZ", "AAA:ZZ")<<endl;
    // cout<<"test 3 not same:"<<compareEquivalence ("AA:XXX", "BB:XXX")<<endl;
 
-   BST<string> *myBST = new BST<string>();
-   myBST->insert("AA:ZZ");
-   myBST->insert("AA:XX");
-   string ZZ="AA:ZZ";
-   string XX="AA:";
-   bool equal = ZZ==XX;
-   cout<<equal<<endl;
-   cout<<"size ZZ: "<<ZZ.size()<<endl;
-   int i = 0;
-   while (ZZ[i]!=':') {
-      i++;
-   }
-   cout<<i<<" "<<ZZ[i];
+   // BST<string> *myBST = new BST<string>();
+   // myBST->insert("AA:ZZ");
+   // myBST->insert("AA:XX");
+   // string ZZ="AA:ZZ";
+   // string XX="AA:";
+   // bool equal = ZZ==XX;
+   // cout<<equal<<endl;
+   // cout<<"size ZZ: "<<ZZ.size()<<endl;
+   // int i = 0;
+   // while (ZZ[i]!=':') {
+   //    i++;
+   // }
+   // cout<<i<<" "<<ZZ[i];
    // try 
    // {
    //    BST<string> *myBST = new BST<string>();
