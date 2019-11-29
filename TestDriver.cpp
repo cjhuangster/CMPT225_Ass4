@@ -9,8 +9,21 @@ bool compareEquivalence (const string &aString, const string &bString);
 
 int main()
 {
-   cout<<compareEquivalence("me:wo", "me:hi")<<endl;
-   cout<<compareEquivalence("me:wo", "ge:wo")<<endl;
+   string aTest = "me:wo";
+   string bTest = "me";
+   string cTest = "mew";
+   string dTest = "";
+   string eTest = "mw:wo";
+   cout<<compareEquivalence(aTest, bTest)<<endl;
+   cout<<compareEquivalence(aTest, cTest)<<endl;
+   cout<<compareEquivalence(aTest, dTest)<<endl;
+   cout<<compareEquivalence(aTest, eTest)<<endl;
+   // cout<< "aTest.size: "<<aTest.size()<<endl;
+   // cout<< "bTest.size: "<<bTest.size()<<endl;
+   // cout<< "aTest[2]: "<< aTest[2]<<endl;
+   
+   // cout<<compareEquivalence("me:wo", "me:hi")<<endl;
+   // cout<<compareEquivalence("me:wo", "ge:wo")<<endl;
 
    // BST Test Driver
    //checkEquivalence Test
@@ -73,43 +86,42 @@ int main()
 
 	bool compareEquivalence (const string &aString, const string &bString)
 	{
-		unsigned int aCounter = 0;
-		// unsigned int aSize = this.size();
 		unsigned int aSize = aString.size();
-		unsigned int bCounter = 0;
-		// unsigned int bSize = rhs.size();
 		unsigned int bSize = bString.size();
-		// cout << "the words to be compared are: " << this << " " << rhs << endl;
-		// while (this[aCounter] != ':' && aCounter < aSize)
-		while (aString[aCounter] != ':' && aCounter < aSize)
+		unsigned int aCounter = aSize;
+		unsigned int bCounter = bSize;
+		char toCompare;
+		char toCompare2;
 		
-		{
-			aCounter++;
+		for (int i=0;i<aSize;i++) {
+			toCompare = aString[i];
+			if (toCompare == ':') {
+				aCounter = i;
+			}
 		}
 
-		// while (rhs[bCounter] != ':' && bCounter < bSize)
-		while (bString[bCounter] != ':' && bCounter < bSize)
-		{
-			bCounter++;
+		for (int i=0;i<bSize;i++) {
+			toCompare2 = bString[i];
+			if (toCompare2 == ':') {
+				bCounter = i;
+			}
 		}
 
 		//case 1: english words of different length
 		if (aCounter != bCounter)
 		{
-			cout << "compared words of different length" << aCounter << bCounter << endl;
+         cout<<"diffrent length"<<endl;
 			return false;
-		} 
+		}
 
 		//case 2: same length words but different char
-		else
-		{
-			string aEnglish = aString.substr(0, aCounter);
-			string bEnglish = bString.substr(0, aCounter);
-			if (aEnglish.compare(bEnglish) != 0)
-			{
-				cout << "compared english words with different char makeup" << endl;
-				return false;
+		else {
+			for (int i=0; i<aCounter;i++) {
+				if (aString[i]!=bString[i]) {
+               cout<<"different char pre :"<<endl;
+					return false;
+				}
 			}
-		} 
+		}  
 		return true;
 	} // end of operator==

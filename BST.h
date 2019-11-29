@@ -48,34 +48,28 @@ private:
 
 	bool operator==(const string &rhs)
 	{
-		unsigned int aCounter = 0;
+		string aString = this;
+		string bString = rhs;
 		unsigned int aSize = this.size();
-		unsigned int bCounter;
 		unsigned int bSize = rhs.size();
-		
+		unsigned int aCounter = aSize;
+		unsigned int bCounter = bSize;
 		char toCompare;
-		for (int i=0;i++;i<this.size()) {
-			toCompare = this[i];
+		char toCompare2;
+		
+		for (int i=0;i<aSize;i++) {
+			toCompare = aString[i];
 			if (toCompare == ':') {
 				aCounter = i;
 			}
 		}
-		char toCompare2;
-		for (int i=0;i++;i<rhs.size()) {
-			toCompare2 = rhs[i];
+
+		for (int i=0;i<bSize;i++) {
+			toCompare2 = bString[i];
 			if (toCompare2 == ':') {
 				bCounter = i;
 			}
 		}
-
-		if (aCounter==0) {
-			aCounter = this.size();
-		}
-
-		if (bCounter==0) {
-			bCounter = rhs.size();
-		}
-
 
 		//case 1: english words of different length
 		if (aCounter != bCounter)
@@ -84,15 +78,56 @@ private:
 		}
 
 		//case 2: same length words but different char
-		else
-		{
-			string aEnglish = this.substr(0, aCounter-1);
-			string bEnglish = rhs.substr(0, aCounter-1);
-			if (aEnglish.compare(bEnglish) != 0)
-			{
-				return false;
+		else {
+			for (int i=0; i<aCounter;i++) {
+				if (aString[i]!=bString[i]) {
+					return false;
+				}
+			}
+		}  
+		return true;
+	} // end of operator==
+
+		bool compareEquivalence (const string &aString, const string &bString) const
+	{
+		unsigned int aSize = aString.size();
+		unsigned int bSize = bString.size();
+		unsigned int aCounter = aSize;
+		unsigned int bCounter = bSize;
+		char toCompare;
+		char toCompare2;
+		
+		for (int i=0;i<aSize;i++) {
+			toCompare = aString[i];
+			if (toCompare == ':') {
+				aCounter = i;
 			}
 		}
+
+		for (int i=0;i<bSize;i++) {
+			toCompare2 = bString[i];
+			if (toCompare2 == ':') {
+				bCounter = i;
+			}
+		}
+
+		//case 1: english words of different length
+		if (aCounter != bCounter)
+		{
+        //  cout<<"different length"<<endl;
+			return false;
+		}
+
+		//case 2: same length words but different char
+		else {
+			for (int i=0; i<aCounter;i++) {
+				if (aString[i]!=bString[i]) {
+            //    cout<<"different char pre :"<<endl;
+					return false;
+				}
+			}
+		}  
+		// cout<<"found match"<<endl;
 		return true;
 	} // end of operator==
 
@@ -162,7 +197,7 @@ void BST<ElementType>::insert(const ElementType &newElement) throw(ElementAlread
 	{
 		if (!insertR(newElement, root))
 		{
-			throw ElementAlreadyExistsInBSTException("Error: Attempted to insert an identical element.");
+			// throw ElementAlreadyExistsInBSTException("Error: Attempted to insert an identical element.");
 		}
 		else
 		{
@@ -179,8 +214,8 @@ ElementType &BST<ElementType>::retrieve(const ElementType &targetElement) throw(
 		cout << "error:retrieve() called from empty BST" << endl;
 	}
 	else
-	{
-		retrieveR(targetElement, root);
+	{ 	
+		return retrieveR(targetElement, root);
 	}
 }
 
@@ -202,8 +237,11 @@ void BST<ElementType>::traverseInOrder() const
 template <class ElementType>
 bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *current)
 {	
-	if (current->getData() == element)
+	string aString = current->getData();
+	string bString = element;
+	if (compareEquivalence(current->getData(), element))
 	{
+		cout<<endl<<"inserted same elements: "<<current->getData()<<" "<<element<<endl;
 		return false;
 	}
 
@@ -239,42 +277,17 @@ bool BST<ElementType>::insertR(const ElementType &element, Node<ElementType> *cu
 
 template <class ElementType>
 ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<ElementType> *current) const throw(ElementDoesNotExistInBSTException)
-{
-	cout << "target Element:" << targetElement << " current Element:" << current->getData() << endl;
-	cout<< (current->data==targetElement)<<endl;
-	int aCounter = 0;
-	int bCounter = 0;
-	char aCompare;
-	char bCompare;
-	for (int i=0;i<current->data.size();i++) {
-		aCompare = current->data[i];
-		cout<<i<< aCompare<<" ";
-		if (aCompare==':') {
-			aCounter = i;
-		}
-	}
-
-	for (int i=0;i<targetElement.size();i++) {
-		bCompare = targetElement[i];
-		cout<<i<< bCompare<<" ";
-		if (bCompare==':') {
-			bCounter = i;
-		}
-	}
-	cout<<"aCounter, data:"<<aCounter<<" "<<current->data[aCounter]<<endl;
-	cout<<"bCounter, data:"<<bCounter<<" "<<targetElement[bCounter]<<endl;
-	cout<<"current size "<<current->data.size()<<endl;
-	cout<<"targetElement size "<<targetElement.size()<<endl;
-
-	
+{	
 	// case 1: targetElement matched, return
-	if (current->data == targetElement)
+	string aString = current->getData();
+	string bString = targetElement;
+	// if (current->getData() == element)
+	// if (aString == bString)
+	if (compareEquivalence(aString, bString))
 	// if (compareEquivalence(current->data, targetElement))
 	{
-		return current->data;
-		// ElementType*toReturn = new ElementType;
-		// toReturn = current->getData());
-		// return toReturn;
+		ElementType toReturn = current->data;
+		return toReturn;
 	}
 	//case 2: targetElement bigger than current data, there is right, go right
 	else if (current->getData() < targetElement && current->hasRight())
