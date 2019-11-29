@@ -215,10 +215,14 @@ ElementType &BST<ElementType>::retrieve(const ElementType &targetElement) throw(
 	}
 	else
 	{ 	
+<<<<<<< HEAD
 		return retrieveR(targetElement, root); 
 		// cout<< toReturn<<endl;
 		// return toReturn;
 	// return retrieveR(targetElement, root);
+=======
+		return retrieveR(targetElement, root);
+>>>>>>> 2552d6cec697784c2440aa2a4dfa01955707ab34
 	}
 }
 
