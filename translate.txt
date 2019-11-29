@@ -1,0 +1,10 @@
+all: TApp
+
+Tapp: TransApp.o BSTNode.h BST.h ElementDoesNotExistsInBSTException.h ElementAlreadyExistsInBSTException.h
+	g++ -Wall -o bsim TransApp.o
+
+TransApp.o: TransApp.cpp
+	g++ -c -std=c++98 TransApp.cpp
+
+clean:
+	rm -f TApp *.o

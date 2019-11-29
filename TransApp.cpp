@@ -5,41 +5,56 @@
 #include <fstream>
 using namespace std;
 
-void getText(const BST<string>&aBST);
-void getInput(const BST<string>&aBST);
+void getText(BST<string> *aBST);
+void getInput(BST<string> *aBST);
 bool compareEquivalence(const string &aString, const string &bString);
 
-int main() 
+int main()
 {
     BST<string> *myBST = new BST<string>();
+    getText(myBST);
+    getInput(myBST);
+
+    return 0;
+}
+
+void getText(BST<string> *aBST)
+{
     // getText(); //get dataFile.txt stored word pairings
     string str;
-	ifstream infile;
-	infile.open ("dataFile.txt");
-        while(getline(infile,str)) // To get you all the lines.
-        {
-	        // cout<<str<<endl; // Prints our STRING.
-            myBST->insert(str); 
-        }  
-	infile.close();  
-     
-    //get input for translator   
-    while (getline(cin,str)) {
-        if (str=="display") { 
-            myBST->traverseInOrder();  
+    ifstream infile;
+    infile.open("dataFile.txt");
+    while (getline(infile, str)) // To get you all the lines.
+    {
+        try {
+            aBST->insert(str);
         }
-        else {   
-            string returned;
-            // returned = myBST->retrieve(str); 
-            cout<< myBST->retrieve(str) <<endl;
-        }  
-    }       
-    return 0;  
-}  
- 
-void getText(const BST<string>&aBST) {
-
+        catch (ElementAlreadyExistsInBSTException&anException) {
+            cout<<"Insert() unsuccessful because" <<anException.what()<<endl;
+        }
+    } 
+    infile.close();
 }
 
-void getInput(const BST<string>&aBST) {
+void getInput(BST<string> *aBST)
+{
+    string str; 
+    //get input for translator 
+    while (getline(cin, str))
+    {
+        if (str == "display")
+        {
+            aBST->traverseInOrder();
+        } 
+        else
+        {
+            try{
+                aBST->retrieve(str);  
+            }
+            catch (ElementDoesNotExistInBSTException&anException) {
+                cout<<"->***Not Found***" <<endl;
+            }
+        }
+    }
 }
+   

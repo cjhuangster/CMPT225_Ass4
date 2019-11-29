@@ -215,7 +215,10 @@ ElementType &BST<ElementType>::retrieve(const ElementType &targetElement) throw(
 	}
 	else
 	{ 	
-		return retrieveR(targetElement, root);
+		return retrieveR(targetElement, root); 
+		// cout<< toReturn<<endl;
+		// return toReturn;
+	// return retrieveR(targetElement, root);
 	}
 }
 
@@ -279,15 +282,15 @@ template <class ElementType>
 ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<ElementType> *current) const throw(ElementDoesNotExistInBSTException)
 {	
 	// case 1: targetElement matched, return
-	string aString = current->getData();
-	string bString = targetElement;
+	ElementType aString = current->data;
+	ElementType bString = targetElement;
 	// if (current->getData() == element)
 	// if (aString == bString)
 	if (compareEquivalence(aString, bString))
 	// if (compareEquivalence(current->data, targetElement))
 	{
-		ElementType toReturn = current->data;
-		return toReturn;
+		cout<<"->"<<aString<<endl<<endl;
+		return aString;
 	}
 	//case 2: targetElement bigger than current data, there is right, go right
 	else if (current->getData() < targetElement && current->hasRight())
@@ -300,8 +303,8 @@ ElementType &BST<ElementType>::retrieveR(const ElementType &targetElement, Node<
 	}
 	else
 	{
-		// throw ElementDoesNotExistInBSTException("Error:targetElement not in BST");
-		cout<<"***Not Found***"<<endl;
+		throw ElementDoesNotExistInBSTException("Error:targetElement not in BST");
+		// cout<<"->"<<"***Not Found***"<<endl;
 	}
 }
 

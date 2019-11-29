@@ -20,7 +20,7 @@ int main()
    cout<<compareEquivalence(aTest, eTest)<<endl;
    // cout<< "aTest.size: "<<aTest.size()<<endl;
    // cout<< "bTest.size: "<<bTest.size()<<endl;
-   // cout<< "aTest[2]: "<< aTest[2]<<endl;
+   // cout<< "aTest[2]: "<< aTest[2]<<endl; 
    
    // cout<<compareEquivalence("me:wo", "me:hi")<<endl;
    // cout<<compareEquivalence("me:wo", "ge:wo")<<endl;
